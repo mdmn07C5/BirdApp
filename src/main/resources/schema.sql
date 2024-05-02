@@ -16,8 +16,8 @@ create table post (
 );
 
 
-insert into account (username, password) values ('ApuApustaja', 'password');
-insert into account (username, password) values ('SpurdoSpadre', 'password');
+insert into account (username, password) values ('apu_apustaja', 'password');
+insert into account (username, password) values ('spurdo_spadre', 'password');
 
 insert into post (posted_by, post_content, time_posted_epoch) values (1,'test message from Apu',1714600414);
 insert into post (posted_by, post_content, time_posted_epoch) values (2,'test message from Spurdo',1714600416);
