@@ -4,14 +4,17 @@ package Controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import Model.Account;
+import Service.AccountService;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
 
 public class BirdAppController {
+    AccountService accountService;
     
     public BirdAppController() {
-
+        this.accountService = new AccountService();
     }
 
     public Javalin startAPI() {
@@ -22,13 +25,14 @@ public class BirdAppController {
         return app;
     }
 
-    private void accountRegisterHandler(Context ctx){
+    private void accountRegisterHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        try {
-            ctx.status(200).json(mapper.writeValueAsString(null));
-        } catch (JsonProcessingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        Account acc = mapper.readValue(ctx.body(), Account.class);
+        Account newAcc = this.accountService.addAccount(acc);
+        if (newAcc == null) {
+            ctx.status(400);
+        } else {
+            ctx.json(mapper.writeValueAsString(newAcc));
         }
     }
 }

@@ -62,7 +62,7 @@ public class UserRegistrationTest {
         HttpResponse<String> response = webClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
         int status = response.statusCode();
         Assert.assertEquals(200, status);
-        Account expectedAccount = new Account(2, "user", "password");
+        Account expectedAccount = new Account(3, "user", "password");
         Account actualAccount = objectMapper.readValue(response.body().toString(), Account.class);
         Assert.assertEquals(expectedAccount, actualAccount);
 
@@ -130,12 +130,12 @@ public class UserRegistrationTest {
      *  Response Body: 
      */
     @Test
-    public void registeUserPasswordLengthLessThanFour() throws IOException, InterruptedException {
+    public void registeUserPasswordLengthLessThanEight() throws IOException, InterruptedException {
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/register"))
+                .uri(URI.create("http://localhost:8080/account/register"))
                 .POST(HttpRequest.BodyPublishers.ofString("{" +
                         "\"username\": \"username\", " +
-                        "\"password\": \"pas\" }"))
+                        "\"password\": \"passwor\" }"))
                 .header("Content-Type", "application/json")
                 .build();
         HttpResponse<String> response = webClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
