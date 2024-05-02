@@ -22,8 +22,6 @@ public class BirdAppController {
 
         app.post("/account/register", this::accountRegisterHandler);
 
-        app.post("/account/login", this::accountLoginHandler);
-
         return app;
     }
 
@@ -35,19 +33,6 @@ public class BirdAppController {
             ctx.status(400);
         } else {
             ctx.json(mapper.writeValueAsString(newAcc));
-        }
-    }
-
-    private void accountLoginHandler(Context ctx) throws JsonProcessingException 
-    {
-        ObjectMapper mapper = new ObjectMapper();
-        Account acc = mapper.readValue(ctx.body(), Account.class);
-        Account retrievedAcc = this.accountService.getAccount(acc);
-
-        if (retrievedAcc ==  null) {
-            ctx.status(401);
-        } else {
-            ctx.json(mapper.writeValueAsString(retrievedAcc));
         }
     }
 }

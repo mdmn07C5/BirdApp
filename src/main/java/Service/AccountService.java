@@ -29,18 +29,4 @@ public class AccountService {
         }
         return this.accountDAO.insertAccount(account);
     }
-
-    /**
-     * Retrieves account iff supplied password matches saved password
-     * @param account 
-     * @return the matching account
-     */
-    public Account getAccount(Account account) {
-        Account accFromDB = this.accountDAO.getAccount(account);
-        if (accFromDB != null && 
-            !accFromDB.getPassword().equals(account.getPassword())) {
-            return null;
-        }
-        return accFromDB;
-    }
 }
