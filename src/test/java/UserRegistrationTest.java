@@ -80,7 +80,7 @@ public class UserRegistrationTest {
     @Test
     public void registerUserDuplicateUsername() throws IOException, InterruptedException {
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/register"))
+                .uri(URI.create("http://localhost:8080/account/register"))
                 .POST(HttpRequest.BodyPublishers.ofString("{" +
                         "\"username\": \"user\", " +
                         "\"password\": \"password\" }"))
@@ -107,7 +107,7 @@ public class UserRegistrationTest {
     @Test
     public void registerUserUsernameBlank() throws IOException, InterruptedException {
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/register"))
+                .uri(URI.create("http://localhost:8080/account/register"))
                 .POST(HttpRequest.BodyPublishers.ofString("{" +
                         "\"username\": \"\", " +
                         "\"password\": \"password\" }"))
