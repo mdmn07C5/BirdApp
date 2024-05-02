@@ -30,6 +30,8 @@ public class BirdAppController {
 
         app.post("/posts", this::postCreateHandler);
 
+        app.get("/posts", this::postsGetHandler);
+
         return app;
     }
 
@@ -68,6 +70,9 @@ public class BirdAppController {
         }
     }
 
+    private void postsGetHandler(Context ctx) throws JsonProcessingException {
+        ctx.json(postService.getPosts());
+    }
 
 }
 

@@ -1,5 +1,7 @@
 package Service;
 
+import java.util.List;
+
 import DAO.AccountDAO;
 import DAO.PostDAO;
 import Model.Post;
@@ -29,5 +31,9 @@ public class PostService {
             return null;
         }
         return this.postDAO.insertPost(post);
+    }
+
+    public List<Post> getPosts() {
+        return this.postDAO.getPosts();
     }
 }

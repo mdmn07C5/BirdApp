@@ -66,8 +66,8 @@ public class RetrieveAllPostsTest {
         Assert.assertEquals(200, status);
 
         List<Post> expectedResult = new ArrayList<>();
-        expectedResult.add(new Post(1,"test message from Apu",1714600414));
-        expectedResult.add(new Post(2,"test message from Spurdo",1714600416));
+        expectedResult.add(new Post(1, 1,"test message from Apu",1714600414));
+        expectedResult.add(new Post(2, 2,"test message from Spurdo",1714600416));
         List<Post> actualResult = objectMapper.readValue(response.body().toString(), new TypeReference<List<Post>>(){});
         Assert.assertEquals(expectedResult, actualResult);
     }
@@ -102,7 +102,7 @@ public class RetrieveAllPostsTest {
     private void removeInitialPost(){
         try {
                 Connection conn = ConnectionUtil.getConnection();
-                PreparedStatement ps = conn.prepareStatement("truncate table posts");
+                PreparedStatement ps = conn.prepareStatement("truncate table post");
                 ps.executeUpdate();
         } catch (SQLException e) {
                 e.printStackTrace();
