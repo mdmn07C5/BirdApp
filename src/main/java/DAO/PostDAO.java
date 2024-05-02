@@ -34,7 +34,7 @@ public class PostDAO {
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 return new Post(
-                    (int) resultSet.getLong("psot_id"), 
+                    (int) resultSet.getLong("post_id"), 
                     post.getPosted_by(),
                     post.getPost_content(),
                     post.getTime_posted_epoch()

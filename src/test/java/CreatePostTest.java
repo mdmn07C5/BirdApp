@@ -68,7 +68,7 @@ public class CreatePostTest {
         Assert.assertEquals(200, status);        
 
         ObjectMapper om = new ObjectMapper();
-        Post expectedResult = new Post(2, 1, "hello world", 1714600418);
+        Post expectedResult = new Post(3, 1, "hello world", 1714600418);
         System.out.println(response.body().toString());
         Post actualResult = om.readValue(response.body().toString(), Post.class);
         Assert.assertEquals(expectedResult, actualResult);

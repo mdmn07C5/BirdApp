@@ -25,7 +25,7 @@ public class PostService {
         if (accountDAO.getAccountById(post.getPosted_by()) == null) {
             return null;
         }
-        if (post.getPost_content().length() > 255) {
+        if (post.getPost_content().length() > 140) {
             return null;
         }
         return this.postDAO.insertPost(post);
