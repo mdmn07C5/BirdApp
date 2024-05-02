@@ -3,16 +3,15 @@ package Model;
 
 public class Account {
 
-    public int account_id;
-    public String username;
-    public String password;
+    private int account_id;
+    private String username;
+    private String password;
 
     public Account(){
 
     }
     /**
      * Two arg constructor for when the DB will be generating the id
-     * account_id is needed.
      * @param username
      * @param password
      */
@@ -21,7 +20,7 @@ public class Account {
         this.password = password;
     }
     /**
-     * All field constructor for accounts retured from the DB
+     * All field constructor for accounts returned from the DB
      * @param account_id
      * @param username
      * @param password
