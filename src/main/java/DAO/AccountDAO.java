@@ -41,4 +41,32 @@ public class AccountDAO {
         }
         return null;
     }
+
+    /**
+     * Retrieves an account if it exists in account table
+     * @param account the account to match against the DB
+     * @return the account, null if not found
+     */
+    public Account getAccount(Account account) {
+        Connection conn = ConnectionUtil.getConnection();
+        try {
+            String sql = "SELECT * FROM account WHERE username = ?";
+
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, account.getUsername());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return new Account(
+                    (int) resultSet.getInt("account_id"),
+                    resultSet.getString("username"),
+                    resultSet.getString("password")
+                );
+            }
+        } catch (SQLException e) {
+            // TODO: some logging
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }
