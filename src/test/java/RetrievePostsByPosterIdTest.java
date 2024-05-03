@@ -67,7 +67,7 @@ public class RetrievePostsByPosterIdTest {
         Assert.assertEquals(200, status);
 
         List<Post> expectedResult = new ArrayList<>();
-        expectedResult.add(new Post(1, 1, "test post 1", 1669947792));
+        expectedResult.add(new Post(1, 1, "test message from Apu",1714600414));
         List<Post> actualResult = objectMapper.readValue(response.body().toString(), new TypeReference<List<Post>>(){});
         Assert.assertEquals(expectedResult, actualResult);
     }

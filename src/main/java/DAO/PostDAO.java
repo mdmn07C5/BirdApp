@@ -145,4 +145,29 @@ public class PostDAO {
             e.printStackTrace();
         }
     }
+
+    public List<Post> getAllPostsByUser(int id) {
+        Connection conn = ConnectionUtil.getConnection();
+        List<Post> posts = new ArrayList<>();
+
+        try {
+            String sql = "SELECT * FROM post WHERE posted_by = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {
+                Post post = new Post(
+                    (int) resultSet.getLong("post_id"),
+                    resultSet.getInt("posted_by"),
+                    resultSet.getString("post_content"),
+                    resultSet.getLong("time_posted_epoch")
+                );
+                posts.add(post);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return posts;
+    }
 }

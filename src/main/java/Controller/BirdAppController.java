@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,6 +41,7 @@ public class BirdAppController {
         
         app.patch("/posts/{post_id}", this::postsUpdateHandler);
         
+        app.get("/accounts/{account_id}/posts", this::postsGetAllFromUserHandler);
 
         return app;
     }
@@ -116,6 +118,12 @@ public class BirdAppController {
         } else {
             ctx.json(mapper.writeValueAsString(newPost));
         }
+    }
+
+    private void postsGetAllFromUserHandler(Context ctx) {
+        int account_id = Integer.parseInt(ctx.pathParam("account_id"));
+        List<Post> posts = this.postService.getAllPostByUserId(account_id);
+        ctx.json(posts);
     }
 }
 

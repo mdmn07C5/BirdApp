@@ -73,4 +73,8 @@ public class PostService {
         }
         return null;
     }
+
+    public List<Post> getAllPostByUserId(int id) {
+        return this.postDAO.getAllPostsByUser(id);
+    }
 }
