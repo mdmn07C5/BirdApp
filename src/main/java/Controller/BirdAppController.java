@@ -34,6 +34,9 @@ public class BirdAppController {
 
         app.get("/posts/{post_id}", this::postsGetByIdHandler);
 
+        app.delete("/posts/{post_id}", this::postsDeleteByIdHandler);
+        
+
         return app;
     }
 
@@ -87,5 +90,15 @@ public class BirdAppController {
         }
     }
 
+    private void postsDeleteByIdHandler(Context ctx) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        int post_id = Integer.parseInt(ctx.pathParam("post_id"));
+        Post post = postService.deletePostById(post_id);
+        if (post == null) {
+            ctx.status(200);
+        } else {
+            ctx.json(mapper.writeValueAsString(post));
+        }
+    }
 }
 

@@ -105,4 +105,23 @@ public class PostDAO {
         }
         return null;
     }
+
+    /**
+     * Deletes post with supplied id
+     * @param id
+     */
+    public void deletePostById(int id) {
+        Connection conn = ConnectionUtil.getConnection();
+
+        try {
+            String sql = "DELETE FROM posts WHERE post_id = ?";;
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

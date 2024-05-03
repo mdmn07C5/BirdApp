@@ -45,4 +45,12 @@ public class PostService {
     public Post getPostById(int id) {
         return this.postDAO.getPostById(id);
     }
+
+    public Post deletePostById(int id) {
+        Post deletedPost = this.postDAO.getPostById(id);
+        if (deletedPost != null) {
+            this.postDAO.deletePostById(id);
+        }
+        return deletedPost;
+    }
 }
