@@ -32,6 +32,8 @@ public class BirdAppController {
 
         app.get("/posts", this::postsGetHandler);
 
+        app.get("/posts/{post_id}", this::postsGetByIdHandler);
+
         return app;
     }
 
@@ -72,6 +74,17 @@ public class BirdAppController {
 
     private void postsGetHandler(Context ctx) throws JsonProcessingException {
         ctx.json(postService.getPosts());
+    }
+
+    private void postsGetByIdHandler(Context ctx) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        int post_id = Integer.parseInt(ctx.pathParam("post_id"));
+        Post post = postService.getPostById(post_id);
+        if (post == null) {
+            ctx.status(200);
+        } else {
+            ctx.json(mapper.writeValueAsString(post));
+        }
     }
 
 }

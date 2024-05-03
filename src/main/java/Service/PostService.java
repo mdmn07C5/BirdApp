@@ -36,4 +36,13 @@ public class PostService {
     public List<Post> getPosts() {
         return this.postDAO.getPosts();
     }
+
+    /**
+     * retrieves post by it's id
+     * @param id
+     * @return post object or null
+     */
+    public Post getPostById(int id) {
+        return this.postDAO.getPostById(id);
+    }
 }

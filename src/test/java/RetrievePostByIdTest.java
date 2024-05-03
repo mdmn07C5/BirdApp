@@ -17,7 +17,7 @@ import Model.Post;
 import Util.ConnectionUtil;
 import io.javalin.Javalin;
 
-public class RetrieveAllPostsByIdTest {
+public class RetrievePostByIdTest {
     BirdAppController birdAppController;
     HttpClient webClient;
     ObjectMapper objectMapper;
@@ -61,7 +61,7 @@ public class RetrieveAllPostsByIdTest {
 
         Assert.assertEquals(200, status);
 
-        Post expectedResult = new Post(1, 1,"test post from Apu",1714600414);
+        Post expectedResult = new Post(1, 1,"test message from Apu",1714600414);
         Post actualResult = objectMapper.readValue(response.body().toString(), Post.class);
         Assert.assertEquals(expectedResult, actualResult);
     }
