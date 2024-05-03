@@ -53,4 +53,24 @@ public class PostService {
         }
         return deletedPost;
     }
+
+    /**
+     * Sets message with id to contain newMessage
+     * @param id id of the message
+     * @param newMessage new message to set
+     * @return Message object containing new message, or null on failure
+     */
+    public Post updatePost(int id, String newContent) {
+        if (newContent.equals("")) {
+            return null;
+        }
+        if (newContent.length() > 140) {
+            return null;
+        }
+        if (this.postDAO.getPostById(id) != null) {
+            this.postDAO.updatePostContent(id, newContent);
+            return this.postDAO.getPostById(id);
+        }
+        return null;
+    }
 }

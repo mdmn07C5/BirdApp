@@ -124,4 +124,25 @@ public class PostDAO {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Update post with supplied id using newPostContent
+     * @param id
+     * @param newPostContent
+     */
+    public void updatePostContent(int id, String newPostContent) {
+        Connection conn = ConnectionUtil.getConnection();
+
+        try {
+            String sql = "UPDATE post SET post_content = ? WHERE post_id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, newPostContent);
+            preparedStatement.setInt(2, id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

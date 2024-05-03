@@ -1,5 +1,7 @@
 package Controller;
 
+import java.io.IOException;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -35,6 +37,8 @@ public class BirdAppController {
         app.get("/posts/{post_id}", this::postsGetByIdHandler);
 
         app.delete("/posts/{post_id}", this::postsDeleteByIdHandler);
+        
+        app.patch("/posts/{post_id}", this::postsUpdateHandler);
         
 
         return app;
@@ -98,6 +102,19 @@ public class BirdAppController {
             ctx.status(200);
         } else {
             ctx.json(mapper.writeValueAsString(post));
+        }
+    }
+
+    private void postsUpdateHandler(Context ctx) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        int post_id = Integer.parseInt(ctx.pathParam("post_id"));
+        Post partial = mapper.readValue(ctx.bodyAsBytes(), Post.class);
+
+        Post newPost = postService.updatePost(post_id, partial.getPost_content());
+        if (newPost == null) {
+            ctx.status(400);
+        } else {
+            ctx.json(mapper.writeValueAsString(newPost));
         }
     }
 }
