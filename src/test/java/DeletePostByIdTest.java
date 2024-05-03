@@ -1,9 +1,9 @@
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+
 
 import org.junit.After;
 import org.junit.Assert;
@@ -17,7 +17,7 @@ import Model.Post;
 import Util.ConnectionUtil;
 import io.javalin.Javalin;
 
-public class RetrievePostByIdTest {
+public class DeletePostByIdTest {
     BirdAppController birdAppController;
     HttpClient webClient;
     ObjectMapper objectMapper;
@@ -45,16 +45,17 @@ public class RetrievePostByIdTest {
 
 
     /**
-     * Sending an HTTP GET request to localhost:8080/posts/1 
+     * Sending an HTTP DELETE request to localhost:8080/posts/1 an existing post
      * 
      * Expected Response:
      *  Status Code: 200
-     *  Response Body: JSON represenation of a post object
+     *  Response Body: JSON representation of the post that was deleted
      */
     @Test
-    public void getPostGivenPostIdPostFound() throws IOException, InterruptedException {
+    public void deletePostGivenPostIdPostFound() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/posts/1"))
+                .DELETE()
                 .build();
         HttpResponse<String> response = webClient.send(request, HttpResponse.BodyHandlers.ofString());
         int status = response.statusCode();
@@ -66,19 +67,19 @@ public class RetrievePostByIdTest {
         Assert.assertEquals(expectedResult, actualResult);
     }
 
-
     /**
-     * Sending an HTTP GET request to localhost:8080/posts/69 (nice)
-     * post #69 does not exist
+     * Sending an HTTP DELETE request to localhost:8080/posts/69 (nice)
+     * post # 69 does not exist in db
      * 
      * Expected Response:
      *  Status Code: 200
      *  Response Body: 
      */
     @Test
-    public void getPostGivenPostIdPostNotFound() throws IOException, InterruptedException {
+    public void deletePostGivenPostIdPostNotFound() throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:8080/posts/69"))
+                .DELETE()
                 .build();
         HttpResponse<String> response = webClient.send(request, HttpResponse.BodyHandlers.ofString());
         int status = response.statusCode();
@@ -86,6 +87,5 @@ public class RetrievePostByIdTest {
         Assert.assertEquals(200, status);
         Assert.assertTrue(response.body().toString().isEmpty());
     }
-
-
+    
 }
