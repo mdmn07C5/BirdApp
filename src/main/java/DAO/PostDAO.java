@@ -76,4 +76,33 @@ public class PostDAO {
         }
         return posts;
     }
+
+    /**
+     * Retrieves posts by supplied id
+     * @param id 
+     * @return post with matching id or null if not found
+     */
+    public Post getPostById(int id) {
+        Connection conn = ConnectionUtil.getConnection();
+
+        try {
+            String sql = "SELECT * FROM post WHERE post_id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()) {
+                return new Post(
+                    (int) resultSet.getLong("post_id"),
+                    resultSet.getInt("posted_by"),
+                    resultSet.getString("post_content"),
+                    resultSet.getLong("time_posted_epoch")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
